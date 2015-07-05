@@ -25,14 +25,14 @@
 package org.spongepowered.mod.mixin.core.world;
 
 import net.minecraft.world.WorldProvider;
-import org.spongepowered.api.world.Dimension;
+import org.spongepowered.api.world.DimensionType;
 import org.spongepowered.asm.mixin.Implements;
 import org.spongepowered.asm.mixin.Interface;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = WorldProvider.class, remap = false)
-@Implements(@Interface(iface = Dimension.class, prefix = "dimension$"))
+@Implements(@Interface(iface = DimensionType.class, prefix = "dimension$"))
 public abstract class MixinWorldProvider {
     @Shadow public abstract int getHeight();
     @Shadow public abstract int getActualHeight();

@@ -34,10 +34,8 @@ import net.minecraftforge.fml.common.network.FMLEmbeddedChannel;
 import net.minecraftforge.fml.common.network.FMLOutboundHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import org.spongepowered.api.world.Dimension;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.common.world.SpongeDimensionType;
 
 import java.io.File;
 
@@ -146,6 +144,6 @@ public abstract class MixinDimensionManager {
         serverChannel.attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.PLAYER);
         serverChannel.attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(playerIn);
         serverChannel.writeOutbound(new ForgeMessage.DimensionRegisterMessage(dim,
-                ((SpongeDimensionType) ((Dimension) worldserver.provider).getType()).getDimensionTypeId()));
+                DimensionManager.getProviderType(dim)));
     }
 }

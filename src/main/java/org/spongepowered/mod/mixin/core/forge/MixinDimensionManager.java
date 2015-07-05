@@ -34,7 +34,6 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.common.Sponge;
 import org.spongepowered.common.registry.SpongeGameRegistry;
-import org.spongepowered.common.world.SpongeDimensionType;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -62,16 +61,14 @@ public abstract class MixinDimensionManager {
                 worldType = "OVERWORLD";
                 break;
             case 1:
-                worldType = "END";
+                worldType = "THE_END";
                 break;
             default: // modded
                 worldType = provider.getSimpleName().toLowerCase();
                 worldType = worldType.replace("worldprovider", "");
                 worldType = worldType.replace("provider", "");
         }
-        // register dimension type
-        ((SpongeGameRegistry) Sponge.getGame().getRegistry())
-                .registerDimensionType(new SpongeDimensionType(worldType, keepLoaded, provider, id));
+
         providers.put(id, provider);
         if (id == 1) {
             // TODO - make this configurable
