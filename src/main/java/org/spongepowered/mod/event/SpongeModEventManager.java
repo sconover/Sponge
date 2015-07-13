@@ -32,7 +32,6 @@ import com.google.common.collect.Maps;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -55,7 +54,6 @@ import org.spongepowered.api.event.entity.EntitySpawnEvent;
 import org.spongepowered.api.event.entity.living.LivingEvent;
 import org.spongepowered.api.event.entity.player.PlayerBreakBlockEvent;
 import org.spongepowered.api.event.entity.player.PlayerChatEvent;
-import org.spongepowered.api.event.entity.player.PlayerDropItemEvent;
 import org.spongepowered.api.event.entity.player.PlayerEvent;
 import org.spongepowered.api.event.entity.player.PlayerInteractBlockEvent;
 import org.spongepowered.api.event.entity.player.PlayerPlaceBlockEvent;
@@ -70,9 +68,9 @@ import org.spongepowered.common.Sponge;
 import org.spongepowered.common.event.RegisteredHandler;
 import org.spongepowered.common.event.SpongeEventManager;
 import org.spongepowered.mod.SpongeMod;
+import org.spongepowered.mod.interfaces.IMixinEvent;
 import org.spongepowered.mod.interfaces.IMixinEventBus;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Map;
@@ -154,7 +152,7 @@ public class SpongeModEventManager extends SpongeEventManager {
 
     public boolean post(net.minecraftforge.fml.common.eventhandler.Event forgeEvent, IEventListener[] listeners) {
         checkNotNull(forgeEvent, "forgeEvent");
-        Event event = (Event) forgeEvent;
+        Event event = ((IMixinEvent) forgeEvent).getSpongeEquivalent();
 
         Order orderStart = Order.PRE;
         RegisteredHandler.Cache handlerCache = getHandlerCache(event);

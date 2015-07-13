@@ -30,4 +30,6 @@ public interface IMixinEvent {
 
     void setSpongeEvent(Event spongeEvent);
 
+    Event getSpongeEquivalent();
+
 }
